@@ -67,7 +67,7 @@ with st.sidebar:
     # st.image("https://raw.githubusercontent.com/AldiPrasetyoHari/Air-Quality-Analysys/main/Ilustrasipengukurankualitasudara.jpg")
     # Meminta input rentang waktu
     date_range = st.date_input(
-        # label="Pilih Rentang Waktu Data",
+        
         label="Select Data Time Range",
         min_value=min_date,
         max_value=max_date,
@@ -82,16 +82,16 @@ with st.sidebar:
 
     # Periksa apakah pengguna sudah selesai memilih kedua tanggal
     if len(date_range) < 2:
-        # st.info("Silakan pilih rentang tanggal lengkap (Mulai dan Selesai).")
+        
         st.info("Please select the complete date range (Start and End).")
         
     else:
         start_date, end_date = date_range
         if start_date > end_date:
-            # st.error("Tanggal mulai tidak boleh lebih besar dari tanggal selesai.")
+            
             st.error("The start date cannot be later than the end date.")
         else:
-            # st.success(f"Rentang Tanggal: {start_date} hingga {end_date}")
+            
             st.success(f"Date Range: {start_date} to {end_date}")
             # Tambahkan logika lain untuk memproses data berdasarkan rentang tanggal
     
@@ -134,13 +134,11 @@ st.title("Air Quality Dashboard")
 tab2, tab1= st.tabs(["Air Pollutant Parameters", "Time Series of Air Pollutant Parameters"])
 
 with tab1:
-    # st.markdown(f"<p style='font-size: 12px;text-align: justify;font-style: italic;'>Data yang ditampilkan merupakan data dalam rentang waktu : {start_date} hingga {end_date} , Jika ingin menyesuaikan silahkan pilih tanggal melalui Sidebar di samping kiri anda.</p>", unsafe_allow_html=True)
-    # st.markdown(f"<p style='font-size: 14px;text-align: justify;'>Anda dapat mengamati bagaimana historical data dari setiap station untuk setiap parameter pollutant yang digunakan atau bahkan dibandingkan dengan parameter cuaca yang ada. \
-                # Namun perlu diperhatikan terdapat ketentuan dalam konfigurasi pilihan antara station, parameter pollutant dan parameter cuaca. Ketentuan tersebut akan memunculkan pesan otomatis sehingga anda dapat menyesuaikan kembali konfigurasi yang dipilih.</p>", unsafe_allow_html=True)
+    
     st.markdown(f"<p style='font-size: 12px;text-align: justify;font-style: italic;'>The data displayed is within the time range: {start_date} to {end_date}. If you wish to adjust it, please select the dates through the Sidebar on your left.</p>", unsafe_allow_html=True)
     st.markdown(f"<p style='font-size: 14px;text-align: justify;'>You can observe the historical data from each station for every pollutant parameter used or even compare it with the available weather parameters. \
     However, please note that there are specific rules in the configuration choices between stations, pollutant parameters, and weather parameters. These rules will trigger an automatic message, allowing you to adjust the selected configuration accordingly.</p>", unsafe_allow_html=True)
-    # st.write(f"Data yang ditampilkan merupakan data dalam rentang waktu : {start_date} hingga {end_date} , Jika ingin menyesuaikan silahkan pilih tanggal melalui Sidebar di samping kiri anda.")
+    
     # Daftar station dan parameter polutan
     stations = PRSA_DataAvg_ModePerMonth["station"].unique()
     stations = sorted(stations)  # Sort stations alphabetically
@@ -150,21 +148,21 @@ with tab1:
     stations_with_all = ["Select All"] + list(stations)
 
     # Filter untuk memilih station
-    # selected_stations = st.multiselect("Pilih Station Pengamatan", options=stations_with_all, default=[stations_with_all[0]])
+    
     selected_stations = st.multiselect("Select Observation Station", options=stations_with_all, default=[stations_with_all[0]])
 
     # Filter untuk memilih parameter polutan
-    # selected_parameters_pollutant = st.multiselect("Pilih Parameter Pollutant", options=parameter_pollutant, default=["PM2.5"])
+    
     selected_parameters_pollutant = st.multiselect("Select Pollutant Parameter", options=parameter_pollutant, default=["PM2.5"])
 
     # Checkbox untuk parameter cuaca
-    # show_selectbox = st.checkbox('Bandingkan dengan parameter cuaca')
+   
     show_selectbox = st.checkbox('Compare with Weather Parameters')
 
     # Pengecekan jika parameter cuaca aktif
     if show_selectbox:
         if "Select All" in selected_stations or not selected_stations:
-            # st.warning("Anda hanya boleh memilih salah satu station saat parameter cuaca diaktifkan.")
+           
             st.warning("You can only select one station when the weather parameter is enabled.")
             selected_stations = ["Aotizhongxin"]  # Kosongkan pilihan jika 'Pilih Semua' dipilih
 
@@ -172,13 +170,13 @@ with tab1:
         selected_parameter_cuaca = st.selectbox('Pilih Parameter Cuaca', ['PRES', 'TEMP', 'DEWP', 'RAIN'], key="cuaca")
 
         if len(selected_parameters_pollutant) > 1:
-            # st.warning("Hanya satu parameter polutan yang bisa dipilih jika parameter cuaca diaktifkan. Parameter polutan pertama yang dipilih akan digunakan.")
+            
             st.warning("Only one pollutant parameter can be selected when the weather parameter is enabled. The first selected pollutant parameter will be used.")
             selected_parameters_pollutant = selected_parameters_pollutant[:1]  # Ambil parameter pertama yang dipilih
 
         # Batasi hanya satu station yang dapat dipilih saat parameter cuaca diaktifkan
         if len(selected_stations) > 1:
-            # st.warning("Hanya satu station yang dapat dipilih saat parameter cuaca diaktifkan.")
+            
             st.warning("Only one station can be selected when the weather parameter is enabled.")
             selected_stations = selected_stations[:1]  # Ambil station pertama yang dipilih
 
@@ -197,15 +195,14 @@ with tab1:
     # Membuat plot dengan dua sumbu Y jika parameter cuaca dipilih
     fig, ax1 = plt.subplots(figsize=(12, 8))
 
-    # Membuat daftar warna solid untuk station (polutan)
-    # solid_colors_pollutant = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:brown', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
+    
 
     # Membuat daftar warna solid untuk parameter cuaca
     solid_colors_weather = ['tab:cyan', 'tab:lime', 'tab:orange', 'tab:purple']
 
     # Pengecekan jika lebih dari dua parameter polutan dipilih
     if len(selected_parameters_pollutant) > 2:
-        # print("Warning: Hanya dua parameter polutan yang dapat dipilih. Parameter lebih dari dua tidak akan ditampilkan.")
+        
         print("Warning: Only two pollutant parameters can be selected. Any parameters beyond two will not be displayed.")
         selected_parameters_pollutant = selected_parameters_pollutant[:2]  # Ambil hanya dua parameter pertama
 
@@ -310,11 +307,7 @@ with tab1:
     # Menampilkan grafik di Streamlit
     st.pyplot(fig)
 with tab2:
-    # st.markdown(f"<p style='font-size: 12px;text-align: justify;font-style: italic;'>Data yang ditampilkan merupakan data dalam rentang waktu : {start_date} hingga {end_date} , Jika ingin menyesuaikan silahkan pilih tanggal melalui Sidebar di samping kiri anda.</p>", unsafe_allow_html=True)
-    # st.markdown(f"<p style='font-size: 14px;text-align: justify;'>Anda dapat mengamati station mana saja yang memiliki proporsi kategori tertinggi dan terendah berdasarka level kategori yang telah ditentukan. Kategori ini merupakan klasifikasi yang dibuat berdasarkan literatur jurnal termasuk dalam formulasi limit level kategorinya.\
-    #             Level kategori memiliki hierarki terendah ke tertinggi yakni Extremly Poor, Very Poor, Poor, Fair, dan Good. Sebagai contoh untuk rentang tanggal 2013/03/01 - 2017/02/01 untuk parameter PM2.5 Lowest diperoleh station Dongsi pada urutan pertama. Meskipun secara proporsi ia hanya bernilai 6.25% namun secara hierarki Extremely Poor memiliki priority nomor 1\
-    #             sehingga insight yang dapat diperoleh yakni pada station Dongsi harus dilakukan penanganan terlebih dahulu karena memiliki parameter kualitas PM2.5 yang Extremly poor, disusul oleh station berikutnya.<br>\
-    #             <br>Adapun untuk Highest berarti ia memiliki kualitas paling baik yang didasarkan pada hierarki level Good, Fair, Poor, Very Poor, dan Extremely Poor. Dimana dapat diartiak selama rentang data 2013/03/01 - 2017/02/01 di station Dingling secara proporsi 25% memperoleh kualitas PM2.5 yang Good disusul oleh station dengan proporsi kualitas PM2.5 terbaik kedua selama rentang data tersebut.</p>", unsafe_allow_html=True)
+    
     st.markdown(f"<p style='font-size: 12px;text-align: justify;font-style: italic;'>The data displayed is within the time range: {start_date} to {end_date}. If you wish to adjust it, please select the dates through the Sidebar on your left.</p>", unsafe_allow_html=True)
     st.markdown(f"<p style='font-size: 14px;text-align: justify;'>You can observe which stations have the highest and lowest proportions based on the predefined category levels. These categories are classifications created based on journal literature, including the formulation of their limit levels.\
                 The category levels are hierarchically ordered from lowest to highest as follows: Extremely Poor, Very Poor, Poor, Fair, and Good. For example, in the date range from 2013/03/01 to 2017/02/01, for the PM2.5 parameter in the Lowest category, Dongsi station ranks first. Although its proportion is only 6.25%, the Extremely Poor level holds the highest priority. This insight indicates that Dongsi station should be addressed first, as it has an Extremely Poor PM2.5 quality parameter, followed by the next stations in the hierarchy.<br>\
@@ -420,12 +413,12 @@ with tab2:
 
 
             # # Pilih parameter untuk ditampilkan
-            # parameter = st.selectbox("Pilih Parameter untuk Pie Chart", df['parameter'].unique())
+            
 
             # Filter data berdasarkan parameter yang dipilih
             filtered_data = category_counts[category_counts['parameter'] == parameter]
             st.markdown(f"<h3 style='font-size: 16px;text-align: center;'>Proportion of Quality Parameter {parameter}</h3>", unsafe_allow_html=True)
-            # st.subheader("Proportion of Quality Parameter Category")
+
         
             # Filter data berdasarkan parameter yang dipilih
             filtered_data = category_counts[category_counts['parameter'] == parameter]
@@ -469,8 +462,7 @@ with tab2:
         cols = st.columns(len(categories))  # Membuat 5 kolom
         for i, category in enumerate(categories):
             with cols[i]:
-                # st.metric(label=category, value=score_dict[category])
-                # Membuat card kustom dengan HTML dan CSS
+                
                 st.markdown(
                 f"""
                 <div style="
@@ -495,7 +487,7 @@ with tab2:
     with st.container():
         parampa="PM2.5"
         st.markdown(f"<h2 style='font-size: 36px;text-align: center;'>Air Quality Parameters {parampa}</h2>", unsafe_allow_html=True)
-        # st.write(all_proportions[all_proportions["parameter"]=="PM2.5"])
+        
         with st.container():
             scorecard_param(PRSA_DataAvg_ModePerMonth, "PM2.5")
             col1, col2, col3, col4, col5 = st.columns(5)
@@ -516,20 +508,11 @@ with tab2:
     with st.container():
         parampa="PM10"
         st.markdown(f"<h2 style='font-size: 36px;text-align: center;'>Air Quality Parameters {parampa}</h2>", unsafe_allow_html=True)
-        # st.write(all_proportions[all_proportions["parameter"]=="PM2.5"])
+        
         with st.container():
             scorecard_param(PRSA_DataAvg_ModePerMonth, parampa)
             col1, col2, col3, col4, col5 = st.columns(5)
-            # with col1:
-            #     st.write("a")
-            # with col2:
-            #     st.write("b")
-            # with col3:
-            #     st.write("b")
-            # with col4:
-            #     st.write("d")
-            # with col5:
-            #     st.write("e")
+            
         with st.container():
             col1, col2, col3 = st.columns(3)
             with col1:
@@ -548,16 +531,7 @@ with tab2:
         with st.container():
             scorecard_param(PRSA_DataAvg_ModePerMonth, parampa)
             col1, col2, col3, col4, col5 = st.columns(5)
-            # with col1:
-            #     st.write("a")
-            # with col2:
-            #     st.write("b")
-            # with col3:
-            #     st.write("b")
-            # with col4:
-            #     st.write("d")
-            # with col5:
-            #     st.write("e")
+            
         with st.container():
             col1, col2, col3 = st.columns(3)
             with col1:
@@ -631,4 +605,4 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# st.caption('Copyright APH24 (c) 2025')
+
