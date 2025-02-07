@@ -67,7 +67,8 @@ with st.sidebar:
     # st.image("https://raw.githubusercontent.com/AldiPrasetyoHari/Air-Quality-Analysys/main/Ilustrasipengukurankualitasudara.jpg")
     # Meminta input rentang waktu
     date_range = st.date_input(
-        label="Pilih Rentang Waktu Data",
+        # label="Pilih Rentang Waktu Data",
+        label="Select Data Time Range",
         min_value=min_date,
         max_value=max_date,
         value=[min_date, max_date]
