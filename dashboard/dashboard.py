@@ -261,13 +261,13 @@ with tab1:
             )
 
     # Label untuk sumbu Y pertama (polutan)
-    ax1.set_xlabel('Bulan-Tahun')
-    ax1.set_ylabel(f'Rata-rata {selected_parameters_pollutant[0]} ug/m^3', color='tab:blue')
+    ax1.set_xlabel('Month-Year')
+    ax1.set_ylabel(f'Average {selected_parameters_pollutant[0]} ug/m^3', color='tab:blue')
     ax1.tick_params(axis='y', labelcolor='tab:blue')
 
     # Label untuk sumbu Y kedua (jika ada dua parameter)
     if len(selected_parameters_pollutant) == 2:
-        ax2.set_ylabel(f'Rata-rata {selected_parameters_pollutant[1]} ug/m^3', color='tab:red')
+        ax2.set_ylabel(f'Average {selected_parameters_pollutant[1]} ug/m^3', color='tab:red')
         ax2.tick_params(axis='y', labelcolor='tab:red')
 
     # Menambahkan legend untuk sumbu Y pertama dan kedua
@@ -294,11 +294,11 @@ with tab1:
             )
 
         # Label untuk sumbu Y kedua (cuaca)
-        ax2.set_ylabel(f'Rata-rata {selected_parameter_cuaca}', color='tab:red')
+        ax2.set_ylabel(f'Average {selected_parameter_cuaca}', color='tab:red')
         ax2.tick_params(axis='y', labelcolor='tab:red')
 
         # Menambahkan legend untuk sumbu Y kedua
-        ax2.legend(title='Station - Cuaca', fontsize=10, bbox_to_anchor=(1.05, 0), loc='upper left')
+        ax2.legend(title='Station - Weather', fontsize=10, bbox_to_anchor=(1.05, 0), loc='upper left')
 
     # Menambahkan rotasi pada tanggal dan memastikan tampilan label sumbu X cukup lebar
     fig.autofmt_xdate(rotation=45)
@@ -309,11 +309,15 @@ with tab1:
     # Menampilkan grafik di Streamlit
     st.pyplot(fig)
 with tab2:
-    st.markdown(f"<p style='font-size: 12px;text-align: justify;font-style: italic;'>Data yang ditampilkan merupakan data dalam rentang waktu : {start_date} hingga {end_date} , Jika ingin menyesuaikan silahkan pilih tanggal melalui Sidebar di samping kiri anda.</p>", unsafe_allow_html=True)
-    st.markdown(f"<p style='font-size: 14px;text-align: justify;'>Anda dapat mengamati station mana saja yang memiliki proporsi kategori tertinggi dan terendah berdasarka level kategori yang telah ditentukan. Kategori ini merupakan klasifikasi yang dibuat berdasarkan literatur jurnal termasuk dalam formulasi limit level kategorinya.\
-                Level kategori memiliki hierarki terendah ke tertinggi yakni Extremly Poor, Very Poor, Poor, Fair, dan Good. Sebagai contoh untuk rentang tanggal 2013/03/01 - 2017/02/01 untuk parameter PM2.5 Lowest diperoleh station Dongsi pada urutan pertama. Meskipun secara proporsi ia hanya bernilai 6.25% namun secara hierarki Extremely Poor memiliki priority nomor 1\
-                sehingga insight yang dapat diperoleh yakni pada station Dongsi harus dilakukan penanganan terlebih dahulu karena memiliki parameter kualitas PM2.5 yang Extremly poor, disusul oleh station berikutnya.<br>\
-                <br>Adapun untuk Highest berarti ia memiliki kualitas paling baik yang didasarkan pada hierarki level Good, Fair, Poor, Very Poor, dan Extremely Poor. Dimana dapat diartiak selama rentang data 2013/03/01 - 2017/02/01 di station Dingling secara proporsi 25% memperoleh kualitas PM2.5 yang Good disusul oleh station dengan proporsi kualitas PM2.5 terbaik kedua selama rentang data tersebut.</p>", unsafe_allow_html=True)
+    # st.markdown(f"<p style='font-size: 12px;text-align: justify;font-style: italic;'>Data yang ditampilkan merupakan data dalam rentang waktu : {start_date} hingga {end_date} , Jika ingin menyesuaikan silahkan pilih tanggal melalui Sidebar di samping kiri anda.</p>", unsafe_allow_html=True)
+    # st.markdown(f"<p style='font-size: 14px;text-align: justify;'>Anda dapat mengamati station mana saja yang memiliki proporsi kategori tertinggi dan terendah berdasarka level kategori yang telah ditentukan. Kategori ini merupakan klasifikasi yang dibuat berdasarkan literatur jurnal termasuk dalam formulasi limit level kategorinya.\
+    #             Level kategori memiliki hierarki terendah ke tertinggi yakni Extremly Poor, Very Poor, Poor, Fair, dan Good. Sebagai contoh untuk rentang tanggal 2013/03/01 - 2017/02/01 untuk parameter PM2.5 Lowest diperoleh station Dongsi pada urutan pertama. Meskipun secara proporsi ia hanya bernilai 6.25% namun secara hierarki Extremely Poor memiliki priority nomor 1\
+    #             sehingga insight yang dapat diperoleh yakni pada station Dongsi harus dilakukan penanganan terlebih dahulu karena memiliki parameter kualitas PM2.5 yang Extremly poor, disusul oleh station berikutnya.<br>\
+    #             <br>Adapun untuk Highest berarti ia memiliki kualitas paling baik yang didasarkan pada hierarki level Good, Fair, Poor, Very Poor, dan Extremely Poor. Dimana dapat diartiak selama rentang data 2013/03/01 - 2017/02/01 di station Dingling secara proporsi 25% memperoleh kualitas PM2.5 yang Good disusul oleh station dengan proporsi kualitas PM2.5 terbaik kedua selama rentang data tersebut.</p>", unsafe_allow_html=True)
+    st.markdown(f"<p style='font-size: 12px;text-align: justify;font-style: italic;'>The data displayed is within the time range: {start_date} to {end_date}. If you wish to adjust it, please select the dates through the Sidebar on your left.</p>", unsafe_allow_html=True)
+    st.markdown(f"<p style='font-size: 14px;text-align: justify;'>You can observe which stations have the highest and lowest proportions based on the predefined category levels. These categories are classifications created based on journal literature, including the formulation of their limit levels.\
+                The category levels are hierarchically ordered from lowest to highest as follows: Extremely Poor, Very Poor, Poor, Fair, and Good. For example, in the date range from 2013/03/01 to 2017/02/01, for the PM2.5 parameter in the Lowest category, Dongsi station ranks first. Although its proportion is only 6.25%, the Extremely Poor level holds the highest priority. This insight indicates that Dongsi station should be addressed first, as it has an Extremely Poor PM2.5 quality parameter, followed by the next stations in the hierarchy.<br>\
+                <br>On the other hand, the Highest category indicates the best quality, based on the hierarchy levels of Good, Fair, Poor, Very Poor, and Extremely Poor. For instance, during the data range from 2013/03/01 to 2017/02/01, Dingling station achieved Good PM2.5 quality 25% of the time, making it the top station for air quality, followed by the station with the second-best PM2.5 quality proportion in that period.</p>", unsafe_allow_html=True)
     PRSA_DataAvg_ModePerMonth=PRSA_DataAvg_ModePerMonth[(PRSA_DataAvg_ModePerMonth['month_year']>=str(start_date)) & (PRSA_DataAvg_ModePerMonth['month_year']<=str(end_date))]
     # Pilih kolom yang diperlukan
     df = PRSA_DataAvg_ModePerMonth[["station", "CO_Category", "NO2_Category", "SO2_Category", "O3_Category", "PM2.5_Category", "PM10_Category"]]
