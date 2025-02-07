@@ -101,7 +101,7 @@ with st.sidebar:
         """
         <div style="display: flex; align-items: flex-end;">
             <img src="https://raw.githubusercontent.com/AldiPrasetyoHari/Air-Quality-Analysys/main/doku.png" alt="Dokumen Logo" style="width: 30px; margin-right: 10px; vertical-align: bottom;">
-            <span style="font-size: 14px;">Referensi :</span>
+            <span style="font-size: 14px;">References :</span>
         </div>
         <span style="font-size: 14px; font-style: italic;">
         Chen, S. (2017). Beijing Multi-Site Air Quality [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5RK5G.
@@ -129,8 +129,9 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     
-
-tab1, tab2= st.tabs(["Dashboard Time Series", "Dashboard Air Quality Parameter"])
+# Menambahkan judul di atas tab
+st.title("Air Quality Dashboard")
+tab1, tab2= st.tabs(["Air Pollutant Parameters", "Time Series of Air Pollutant Parameters"])
 
 with tab1:
     # st.markdown(f"<p style='font-size: 12px;text-align: justify;font-style: italic;'>Data yang ditampilkan merupakan data dalam rentang waktu : {start_date} hingga {end_date} , Jika ingin menyesuaikan silahkan pilih tanggal melalui Sidebar di samping kiri anda.</p>", unsafe_allow_html=True)
