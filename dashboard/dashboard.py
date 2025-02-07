@@ -135,7 +135,7 @@ tab1, tab2= st.tabs(["Dashboard Time Series", "Dashboard Air Quality Parameter"]
 with tab1:
     # st.markdown(f"<p style='font-size: 12px;text-align: justify;font-style: italic;'>Data yang ditampilkan merupakan data dalam rentang waktu : {start_date} hingga {end_date} , Jika ingin menyesuaikan silahkan pilih tanggal melalui Sidebar di samping kiri anda.</p>", unsafe_allow_html=True)
     # st.markdown(f"<p style='font-size: 14px;text-align: justify;'>Anda dapat mengamati bagaimana historical data dari setiap station untuk setiap parameter pollutant yang digunakan atau bahkan dibandingkan dengan parameter cuaca yang ada. \
-                Namun perlu diperhatikan terdapat ketentuan dalam konfigurasi pilihan antara station, parameter pollutant dan parameter cuaca. Ketentuan tersebut akan memunculkan pesan otomatis sehingga anda dapat menyesuaikan kembali konfigurasi yang dipilih.</p>", unsafe_allow_html=True)
+                # Namun perlu diperhatikan terdapat ketentuan dalam konfigurasi pilihan antara station, parameter pollutant dan parameter cuaca. Ketentuan tersebut akan memunculkan pesan otomatis sehingga anda dapat menyesuaikan kembali konfigurasi yang dipilih.</p>", unsafe_allow_html=True)
     st.markdown(f"<p style='font-size: 12px;text-align: justify;font-style: italic;'>The data displayed is within the time range: {start_date} to {end_date}. If you wish to adjust it, please select the dates through the Sidebar on your left.</p>", unsafe_allow_html=True)
     st.markdown(f"<p style='font-size: 14px;text-align: justify;'>You can observe the historical data from each station for every pollutant parameter used or even compare it with the available weather parameters. \
     However, please note that there are specific rules in the configuration choices between stations, pollutant parameters, and weather parameters. These rules will trigger an automatic message, allowing you to adjust the selected configuration accordingly.</p>", unsafe_allow_html=True)
@@ -171,19 +171,21 @@ with tab1:
         selected_parameter_cuaca = st.selectbox('Pilih Parameter Cuaca', ['PRES', 'TEMP', 'DEWP', 'RAIN'], key="cuaca")
 
         if len(selected_parameters_pollutant) > 1:
-            st.warning("Hanya satu parameter polutan yang bisa dipilih jika parameter cuaca diaktifkan. Parameter polutan pertama yang dipilih akan digunakan.")
+            # st.warning("Hanya satu parameter polutan yang bisa dipilih jika parameter cuaca diaktifkan. Parameter polutan pertama yang dipilih akan digunakan.")
+            st.warning("Only one pollutant parameter can be selected when the weather parameter is enabled. The first selected pollutant parameter will be used.")
             selected_parameters_pollutant = selected_parameters_pollutant[:1]  # Ambil parameter pertama yang dipilih
 
         # Batasi hanya satu station yang dapat dipilih saat parameter cuaca diaktifkan
         if len(selected_stations) > 1:
-            st.warning("Hanya satu station yang dapat dipilih saat parameter cuaca diaktifkan.")
+            # st.warning("Hanya satu station yang dapat dipilih saat parameter cuaca diaktifkan.")
+            st.warning("Only one station can be selected when the weather parameter is enabled.")
             selected_stations = selected_stations[:1]  # Ambil station pertama yang dipilih
 
     else:
         selected_parameter_cuaca = None
 
     # Filter data berdasarkan pilihan station
-    if not selected_stations or selected_stations[0] == "Pilih Semua":
+    if not selected_stations or selected_stations[0] == "Select All":
         stations = stations
     else:
         stations = selected_stations
@@ -202,7 +204,8 @@ with tab1:
 
     # Pengecekan jika lebih dari dua parameter polutan dipilih
     if len(selected_parameters_pollutant) > 2:
-        print("Warning: Hanya dua parameter polutan yang dapat dipilih. Parameter lebih dari dua tidak akan ditampilkan.")
+        # print("Warning: Hanya dua parameter polutan yang dapat dipilih. Parameter lebih dari dua tidak akan ditampilkan.")
+        print("Warning: Only two pollutant parameters can be selected. Any parameters beyond two will not be displayed.")
         selected_parameters_pollutant = selected_parameters_pollutant[:2]  # Ambil hanya dua parameter pertama
 
     # Warna untuk setiap station (pastikan memiliki cukup warna)
