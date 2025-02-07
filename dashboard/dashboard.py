@@ -131,7 +131,7 @@ with st.sidebar:
     
 # Menambahkan judul di atas tab
 st.title("Air Quality Dashboard")
-tab1, tab2= st.tabs(["Air Pollutant Parameters", "Time Series of Air Pollutant Parameters"])
+tab2, tab1= st.tabs(["Air Pollutant Parameters", "Time Series of Air Pollutant Parameters"])
 
 with tab1:
     # st.markdown(f"<p style='font-size: 12px;text-align: justify;font-style: italic;'>Data yang ditampilkan merupakan data dalam rentang waktu : {start_date} hingga {end_date} , Jika ingin menyesuaikan silahkan pilih tanggal melalui Sidebar di samping kiri anda.</p>", unsafe_allow_html=True)
