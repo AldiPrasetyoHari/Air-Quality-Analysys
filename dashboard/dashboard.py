@@ -67,7 +67,8 @@ with st.sidebar:
     # st.image("https://raw.githubusercontent.com/AldiPrasetyoHari/Air-Quality-Analysys/main/Ilustrasipengukurankualitasudara.jpg")
     # Meminta input rentang waktu
     date_range = st.date_input(
-        label="Pilih Rentang Waktu Data",
+        # label="Pilih Rentang Waktu Data",
+        label="Select Data Time Range",
         min_value=min_date,
         max_value=max_date,
         value=[min_date, max_date]
@@ -134,7 +135,7 @@ tab1, tab2= st.tabs(["Dashboard Time Series", "Dashboard Air Quality Parameter"]
 with tab1:
     # st.markdown(f"<p style='font-size: 12px;text-align: justify;font-style: italic;'>Data yang ditampilkan merupakan data dalam rentang waktu : {start_date} hingga {end_date} , Jika ingin menyesuaikan silahkan pilih tanggal melalui Sidebar di samping kiri anda.</p>", unsafe_allow_html=True)
     # st.markdown(f"<p style='font-size: 14px;text-align: justify;'>Anda dapat mengamati bagaimana historical data dari setiap station untuk setiap parameter pollutant yang digunakan atau bahkan dibandingkan dengan parameter cuaca yang ada. \
-                Namun perlu diperhatikan terdapat ketentuan dalam konfigurasi pilihan antara station, parameter pollutant dan parameter cuaca. Ketentuan tersebut akan memunculkan pesan otomatis sehingga anda dapat menyesuaikan kembali konfigurasi yang dipilih.</p>", unsafe_allow_html=True)
+                # Namun perlu diperhatikan terdapat ketentuan dalam konfigurasi pilihan antara station, parameter pollutant dan parameter cuaca. Ketentuan tersebut akan memunculkan pesan otomatis sehingga anda dapat menyesuaikan kembali konfigurasi yang dipilih.</p>", unsafe_allow_html=True)
     st.markdown(f"<p style='font-size: 12px;text-align: justify;font-style: italic;'>The data displayed is within the time range: {start_date} to {end_date}. If you wish to adjust it, please select the dates through the Sidebar on your left.</p>", unsafe_allow_html=True)
     st.markdown(f"<p style='font-size: 14px;text-align: justify;'>You can observe the historical data from each station for every pollutant parameter used or even compare it with the available weather parameters. \
     However, please note that there are specific rules in the configuration choices between stations, pollutant parameters, and weather parameters. These rules will trigger an automatic message, allowing you to adjust the selected configuration accordingly.</p>", unsafe_allow_html=True)
